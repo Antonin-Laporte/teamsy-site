@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bao Brothers — Street-food asiatique</title>
+<meta name="description" content="Bao Brothers, street-food asiatique. Baos vapeur, bols qui claquent, commande et réservation en deux clics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night: oklch(0.21 0.04 300);
+    --night-2: oklch(0.27 0.05 300);
+    --cream: oklch(0.96 0.03 95);
+    --pink: oklch(0.7 0.2 12);
+    --lime: oklch(0.86 0.2 130);
+    --yellow: oklch(0.85 0.17 90);
+    --cyan: oklch(0.78 0.13 200);
+    --ink: oklch(0.2 0.03 300);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Archivo",sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,.black{font-family:"Archivo Black",sans-serif;line-height:0.95;letter-spacing:-0.02em;text-transform:uppercase}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  .ribbon{background:var(--ink);color:var(--cream);text-align:center;font-size:0.84rem;padding:9px 16px;font-weight:600}
+  .ribbon a{color:var(--lime);border-bottom:2px solid currentColor}
+
+  nav{position:sticky;top:0;z-index:40;background:var(--night);color:var(--cream)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{font-family:"Archivo Black";font-size:1.5rem;text-transform:uppercase;color:var(--cream)}
+  .brand b{color:var(--lime)}
+  .nav-links{display:flex;gap:28px;align-items:center;font-weight:600;font-size:0.95rem}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--lime)}
+  .order-btn{background:var(--lime);color:var(--ink);padding:11px 22px;border-radius:999px;font-weight:700;font-family:"Archivo";transition:transform .2s}
+  .order-btn:hover{transform:scale(1.05)}
+  .menu-x{display:none}
+
+  /* hero */
+  .hero{background:var(--night);color:var(--cream);position:relative;overflow:hidden;padding:clamp(50px,7vw,90px) 0 0}
+  .blob{position:absolute;border-radius:50%;filter:blur(50px);opacity:0.55;z-index:0}
+  .blob.p{width:420px;height:420px;background:var(--pink);top:-120px;right:-80px}
+  .blob.c{width:340px;height:340px;background:var(--cyan);bottom:-100px;left:-60px}
+  .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:center}
+  .hero .tagpill{display:inline-block;background:var(--pink);color:var(--cream);font-weight:700;font-size:0.82rem;padding:7px 16px;border-radius:999px;margin-bottom:22px;text-transform:uppercase;letter-spacing:0.04em}
+  .hero h1{font-size:clamp(3rem,9vw,6.5rem);color:var(--cream)}
+  .hero h1 .y{color:var(--yellow)}
+  .hero h1 .l{color:var(--lime)}
+  .hero p{font-size:clamp(1.05rem,1.6vw,1.3rem);margin-top:22px;max-width:30ch;color:oklch(0.88 0.02 300);font-weight:500}
+  .hero-cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+  .btn-pink{background:var(--pink);color:var(--cream);padding:14px 26px;border-radius:999px;font-weight:700;transition:transform .2s}
+  .btn-pink:hover{transform:scale(1.05)}
+  .btn-out{border:2px solid var(--cream);color:var(--cream);padding:12px 24px;border-radius:999px;font-weight:700;transition:all .2s}
+  .btn-out:hover{background:var(--cream);color:var(--ink)}
+  .hero-visual{position:relative;aspect-ratio:1/1;border-radius:30px;overflow:hidden;background:linear-gradient(150deg,var(--pink),oklch(0.5 0.18 30));transform:rotate(-2deg);box-shadow:0 30px 60px -24px oklch(0.2 0.1 320)}
+  .hero-visual .img{position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1100&q=80");background-size:cover;background-position:center;mix-blend-mode:luminosity;opacity:0.9}
+  .hero-strip{position:relative;z-index:2;margin-top:60px;background:var(--lime);color:var(--ink);font-family:"Archivo Black";text-transform:uppercase;font-size:1.1rem;padding:16px 0;white-space:nowrap;overflow:hidden}
+  .hero-strip .track{display:inline-block;animation:marq 22s linear infinite}
+  .hero-strip span{margin:0 22px}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:clamp(60px,8vw,100px) 0}
+  .kick{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:700;padding:6px 14px;border-radius:999px;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:18px}
+  .sec-title{font-size:clamp(2.2rem,5vw,3.6rem)}
+
+  /* menu cards */
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+  .dish{border-radius:22px;overflow:hidden;background:var(--cream);border:2px solid var(--ink);transition:transform .25s cubic-bezier(.16,1,.3,1)}
+  .dish:hover{transform:translateY(-6px)}
+  .dish .pic{aspect-ratio:4/3;position:relative;overflow:hidden}
+  .dish .pic .img{position:absolute;inset:0;background-size:cover;background-position:center}
+  .dish .pic .price{position:absolute;bottom:12px;right:12px;background:var(--ink);color:var(--cream);font-family:"Archivo Black";font-size:1rem;padding:6px 13px;border-radius:999px;z-index:2}
+  .m1{background:oklch(0.6 0.15 40)}.m1 .img{background-image:url("https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80")}
+  .m2{background:oklch(0.62 0.14 60)}.m2 .img{background-image:url("https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80")}
+  .m3{background:oklch(0.58 0.13 30)}.m3 .img{background-image:url("https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80")}
+  .m4{background:oklch(0.64 0.15 75)}.m4 .img{background-image:url("https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=800&q=80")}
+  .m5{background:oklch(0.6 0.14 45)}.m5 .img{background-image:url("https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?auto=format&fit=crop&w=800&q=80")}
+  .m6{background:oklch(0.62 0.13 130)}.m6 .img{background-image:url("https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=80")}
+  .dish .d-body{padding:18px 20px 22px}
+  .dish h3{font-size:1.25rem;margin-bottom:6px}
+  .dish p{font-size:0.92rem;color:oklch(0.42 0.02 300)}
+  .dish .tags{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+  .dish .tag{font-size:0.72rem;font-weight:700;background:var(--lime);color:var(--ink);padding:4px 10px;border-radius:999px}
+  .dish .tag.spicy{background:var(--pink);color:var(--cream)}
+  .dish .tag.veg{background:var(--cyan)}
+
+  /* how it works */
+  .how{background:var(--night);color:var(--cream)}
+  .how .kick{background:var(--lime)}
+  .how .sec-title{color:var(--cream)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+  .stepc{background:var(--night-2);border-radius:22px;padding:30px}
+  .stepc .n{font-family:"Archivo Black";font-size:2.6rem;color:var(--yellow);line-height:1}
+  .stepc h3{font-size:1.3rem;margin-top:14px;color:var(--cream)}
+  .stepc p{color:oklch(0.82 0.02 300);margin-top:8px;font-size:0.96rem}
+
+  /* order/resa */
+  .order{background:var(--lime)}
+  .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .order h2{font-size:clamp(2.4rem,5vw,4rem);color:var(--ink)}
+  .order .lead{font-size:1.15rem;font-weight:600;margin-top:18px;max-width:34ch}
+  .order .hours{margin-top:26px;font-weight:600}
+  .order .hours div{padding:5px 0;border-bottom:2px solid oklch(0.7 0.15 130)}
+  .order-card{background:var(--ink);color:var(--cream);border-radius:26px;padding:38px}
+  .order-card h3{color:var(--lime);font-size:1.5rem;margin-bottom:22px}
+  .field{display:flex;flex-direction:column;margin-bottom:16px}
+  .field label{font-size:0.82rem;font-weight:700;margin-bottom:7px;color:oklch(0.82 0.02 300)}
+  .field input,.field select{padding:13px 15px;border-radius:12px;border:none;background:var(--night-2);color:var(--cream);font-family:inherit;font-size:0.96rem}
+  .field input::placeholder{color:oklch(0.6 0.02 300)}
+  .field input:focus,.field select:focus{outline:2px solid var(--lime)}
+  .row{display:flex;gap:14px}.row .field{flex:1}
+  .order-card button{width:100%;background:var(--pink);color:var(--cream);border:none;border-radius:999px;padding:15px;font-family:"Archivo";font-weight:700;font-size:1rem;cursor:pointer;margin-top:6px;transition:transform .2s}
+  .order-card button:hover{transform:scale(1.02)}
+
+  footer{background:var(--night);color:oklch(0.82 0.02 300);padding:56px 0 38px}
+  .foot-in{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  footer .brand{font-size:1.8rem;margin-bottom:10px}
+  footer p{font-size:0.92rem;max-width:30ch}
+  .foot-teamsy{margin-top:40px;padding-top:22px;border-top:1px solid var(--night-2);font-size:0.84rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .foot-teamsy a{color:var(--lime);font-weight:700}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:880px){
+    .hero-in,.order-grid{grid-template-columns:1fr;gap:34px}
+    .menu-grid{grid-template-columns:1fr 1fr}
+    .steps{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .nav-links.show{display:flex;position:absolute;top:72px;left:0;right:0;background:var(--night);flex-direction:column;padding:22px 24px;gap:18px}
+    .menu-x{display:flex;background:none;border:none;cursor:pointer;color:var(--cream)}
+    nav .order-btn.navr{display:none}
+  }
+  @media(max-width:520px){.menu-grid{grid-template-columns:1fr}.row{flex-direction:column;gap:0}}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.track{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Démo Teamsy · restaurant fictif. <a href="index.html">Voir comment c'est fait →</a></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#" class="brand">Bao<b>Brothers</b></a>
+    <div class="nav-links" id="nl">
+      <a href="#carte">La carte</a>
+      <a href="#how">Comment ça marche</a>
+      <a href="#order">Infos</a>
+      <a href="#order" class="order-btn navr">Commander</a>
+    </div>
+    <button class="menu-x" id="mx" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="blob p"></div><div class="blob c"></div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="tagpill">🥟 Street-food asiatique · Marseille</span>
+      <h1>Des baos<br>qui <span class="y">claquent.</span><br>Des bols qui <span class="l">déchirent.</span></h1>
+      <p>Vapeur, wok, sauces maison. À emporter, sur place, ou réservé en deux clics.</p>
+      <div class="hero-cta">
+        <a href="#carte" class="btn-pink">Voir la carte</a>
+        <a href="#order" class="btn-out">Réserver une table</a>
+      </div>
+    </div>
+    <div class="hero-visual"><div class="img"></div></div>
+  </div>
+  <div class="hero-strip">
+    <span class="track black"><span>Bao porc laqué</span>•<span>Bo bun crevettes</span>•<span>Gyoza maison</span>•<span>Bao tofu croustillant</span>•<span>Ramen du jour</span>•<span>Bao porc laqué</span>•<span>Bo bun crevettes</span>•<span>Gyoza maison</span>•<span>Bao tofu croustillant</span>•<span>Ramen du jour</span>•</span>
+  </div>
+</header>
+
+<section id="carte">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kick">La carte</span>
+      <h2 class="sec-title">Ce qui sort de la cuisine</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="dish reveal"><div class="pic m1"><div class="img"></div><span class="price">7 €</span></div><div class="d-body"><h3>Bao porc laqué</h3><p>porc effiloché, sauce hoisin, concombre, cacahuète</p><div class="tags"><span class="tag">signature</span></div></div></div>
+      <div class="dish reveal"><div class="pic m2"><div class="img"></div><span class="price">7 €</span></div><div class="d-body"><h3>Bao tofu croustillant</h3><p>tofu pané, mayo sriracha, oignons frits</p><div class="tags"><span class="tag veg">veggie</span><span class="tag spicy">spicy</span></div></div></div>
+      <div class="dish reveal"><div class="pic m3"><div class="img"></div><span class="price">12 €</span></div><div class="d-body"><h3>Bo bun crevettes</h3><p>vermicelles, crevettes grillées, nems, herbes fraîches</p><div class="tags"><span class="tag">best-seller</span></div></div></div>
+      <div class="dish reveal"><div class="pic m4"><div class="img"></div><span class="price">6 €</span></div><div class="d-body"><h3>Gyoza maison ×6</h3><p>raviolis poêlés porc-gingembre, sauce ponzu</p><div class="tags"><span class="tag">à partager</span></div></div></div>
+      <div class="dish reveal"><div class="pic m5"><div class="img"></div><span class="price">13 €</span></div><div class="d-body"><h3>Ramen du jour</h3><p>bouillon 12h, œuf mollet, pousses, ciboule</p><div class="tags"><span class="tag spicy">spicy</span></div></div></div>
+      <div class="dish reveal"><div class="pic m6"><div class="img"></div><span class="price">5 €</span></div><div class="d-body"><h3>Bao glacé matcha</h3><p>bao vapeur sucré, glace matcha, sésame noir</p><div class="tags"><span class="tag veg">dessert</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="how">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kick">Simple comme bonjour</span>
+      <h2 class="sec-title">Trois façons de se régaler</h2>
+    </div>
+    <div class="steps">
+      <div class="stepc reveal"><div class="n">01</div><h3>Sur place</h3><p>Réservez votre table en ligne, on vous garde les meilleures places.</p></div>
+      <div class="stepc reveal"><div class="n">02</div><h3>À emporter</h3><p>Commandez à l'avance, c'est prêt et chaud quand vous arrivez.</p></div>
+      <div class="stepc reveal"><div class="n">03</div><h3>En livraison</h3><p>Sur Marseille centre, livré en moins de 30 minutes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="order" class="order">
+  <div class="wrap order-grid">
+    <div class="reveal">
+      <h2>On vous<br>garde une<br>table ?</h2>
+      <p class="lead">Réservation en ligne, confirmation immédiate. Pas d'appel, pas d'attente.</p>
+      <div class="hours">
+        <div>Mar – Jeu · 11h30 – 14h30 · 18h30 – 22h30</div>
+        <div>Ven – Sam · 11h30 – 23h30</div>
+        <div>Dim – Lun · Fermé</div>
+      </div>
+      <p style="margin-top:24px;font-weight:600">18 cours Julien, 13006 Marseille · 04 91 00 00 00</p>
+    </div>
+    <div class="order-card reveal">
+      <h3>Réserver une table</h3>
+      <div class="row">
+        <div class="field"><label>Date</label><input type="date" value="2026-06-12"></div>
+        <div class="field"><label>Heure</label><select><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option></select></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Couverts</label><select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>Groupe 6+</option></select></div>
+        <div class="field"><label>Prénom</label><input type="text" placeholder="Votre prénom"></div>
+      </div>
+      <div class="field"><label>Téléphone</label><input type="tel" placeholder="06 ..."></div>
+      <button onclick="alert('Démo Teamsy — sur un vrai site, la table serait confirmée instantanément par SMS.');return false;">C'est réservé 🥢</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <div class="brand">Bao<b style="color:var(--lime)">Brothers</b></div>
+        <p>Street-food asiatique faite maison. Cours Julien, Marseille.</p>
+      </div>
+      <div style="font-size:0.92rem;line-height:2">
+        18 cours Julien, 13006 Marseille<br>
+        04 91 00 00 00<br>
+        @baobrothers · Instagram · TikTok
+      </div>
+    </div>
+    <div class="foot-teamsy">
+      <span>© 2026 Bao Brothers (restaurant fictif)</span>
+      <span>Site de démonstration réalisé par <a href="index.html">Teamsy →</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mx=document.getElementById('mx'),nl=document.getElementById('nl');
+  mx.addEventListener('click',()=>nl.classList.toggle('show'));
+  nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('show')));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

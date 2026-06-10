@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Lavigne — Table gastronomique</title>
+<meta name="description" content="Maison Lavigne, table gastronomique. Une cuisine de précision, un menu en sept temps. Réservation en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir: oklch(0.18 0.008 250);
+    --noir-2: oklch(0.23 0.01 250);
+    --bone: oklch(0.92 0.012 85);
+    --bone-soft: oklch(0.72 0.012 80);
+    --gold: oklch(0.78 0.08 82);
+    --gold-deep: oklch(0.62 0.08 78);
+    --line: oklch(0.34 0.012 250);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Hanken Grotesk",sans-serif;background:var(--noir);color:var(--bone);line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,.disp{font-family:"Libre Caslon Display",serif;font-weight:400;letter-spacing:0.01em;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .upper{text-transform:uppercase;letter-spacing:0.32em;font-size:0.74rem;font-weight:500}
+
+  .ribbon{background:var(--noir-2);color:var(--bone-soft);text-align:center;font-size:0.82rem;padding:9px 16px;border-bottom:1px solid var(--line)}
+  .ribbon a{color:var(--gold);border-bottom:1px solid currentColor}
+
+  nav{position:sticky;top:0;z-index:40;background:oklch(0.18 0.008 250 / 0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:80px}
+  .brand{font-family:"Libre Caslon Display";font-size:1.5rem;letter-spacing:0.06em}
+  .nav-links{display:flex;gap:38px;align-items:center}
+  .nav-links a{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bone-soft);transition:color .3s}
+  .nav-links a:hover{color:var(--gold)}
+  .resa-btn{border:1px solid var(--gold);color:var(--gold);padding:11px 24px;font-size:0.74rem;letter-spacing:0.18em;text-transform:uppercase;transition:all .3s}
+  .resa-btn:hover{background:var(--gold);color:var(--noir)}
+  .menu-x{display:none}
+
+  /* hero */
+  .hero{position:relative;height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  .hero .bg{position:absolute;inset:0;background:linear-gradient(180deg,oklch(0.2 0.01 250),oklch(0.14 0.008 250))}
+  .hero .bg::after{content:"";position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80");background-size:cover;background-position:center;opacity:0.32;mix-blend-mode:luminosity}
+  .hero-in{position:relative;z-index:2;max-width:760px;padding:0 24px}
+  .hero .upper{color:var(--gold);margin-bottom:30px}
+  .hero h1{font-size:clamp(3.2rem,9vw,7rem);line-height:0.96}
+  .hero .sub{font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--bone-soft);margin-top:28px;font-weight:300;letter-spacing:0.01em}
+  .hero .stars{margin-top:34px;color:var(--gold);letter-spacing:0.4em;font-size:0.9rem}
+  .scrollcue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;color:var(--bone-soft);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase}
+
+  section{padding:clamp(72px,9vw,128px) 0}
+  .center{text-align:center;max-width:60ch;margin:0 auto}
+  .label{color:var(--gold-deep);margin-bottom:22px}
+  .sec-title{font-size:clamp(2.2rem,4.5vw,3.4rem)}
+
+  /* philosophy */
+  .phil p{font-size:clamp(1.2rem,2vw,1.6rem);font-family:"Libre Caslon Display";line-height:1.5;color:var(--bone);margin-top:26px}
+  .phil .by{margin-top:30px;color:var(--bone-soft);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase}
+
+  /* menu degustation */
+  .deg{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--noir-2)}
+  .deg-head{text-align:center;margin-bottom:64px}
+  .courses{max-width:680px;margin:0 auto;display:flex;flex-direction:column}
+  .course{display:flex;align-items:baseline;gap:24px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .course:last-child{border:none}
+  .course .no{font-family:"Libre Caslon Display";font-size:1.1rem;color:var(--gold);width:42px;flex-shrink:0}
+  .course .c-body{flex:1}
+  .course h3{font-size:1.5rem;margin-bottom:6px}
+  .course p{color:var(--bone-soft);font-size:0.96rem;font-weight:300}
+  .deg-price{text-align:center;margin-top:60px}
+  .deg-price .amount{font-family:"Libre Caslon Display";font-size:3rem;color:var(--gold)}
+  .deg-price p{color:var(--bone-soft);font-size:0.92rem;margin-top:8px}
+
+  /* gallery band */
+  .band{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .band .cell{aspect-ratio:1/1.15;position:relative;overflow:hidden}
+  .band .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.16,1,.3,1);filter:grayscale(0.15)}
+  .band .cell:hover .img{transform:scale(1.06);filter:grayscale(0)}
+  .b1{background:oklch(0.3 0.02 250)}.b1 .img{background-image:url("https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80")}
+  .b2{background:oklch(0.28 0.02 250)}.b2 .img{background-image:url("https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80")}
+  .b3{background:oklch(0.26 0.02 250)}.b3 .img{background-image:url("https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80")}
+
+  /* reservation */
+  .resa-sec{text-align:center}
+  .resa-card{max-width:540px;margin:48px auto 0;border:1px solid var(--line);padding:44px 40px;text-align:left;background:var(--noir-2)}
+  .form-row{display:flex;gap:16px;margin-bottom:20px}
+  .field{flex:1;display:flex;flex-direction:column}
+  .field label{font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--bone-soft);margin-bottom:8px}
+  .field input,.field select{padding:13px 14px;background:var(--noir);border:1px solid var(--line);color:var(--bone);font-family:inherit;font-size:0.95rem}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--gold)}
+  .resa-card .resa-btn{display:block;width:100%;text-align:center;border:none;background:var(--gold);color:var(--noir);cursor:pointer;font-family:inherit;padding:15px;margin-top:6px}
+  .resa-card .resa-btn:hover{background:var(--gold-deep)}
+  .hint{text-align:center;color:var(--bone-soft);font-size:0.8rem;margin-top:16px;letter-spacing:0.04em}
+
+  /* info */
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:900px;margin:56px auto 0;text-align:center}
+  .info-grid .upper{color:var(--gold-deep);margin-bottom:14px}
+  .info-grid p{color:var(--bone-soft);font-size:0.96rem}
+
+  footer{background:var(--noir-2);border-top:1px solid var(--line);padding:64px 0 40px;text-align:center}
+  footer .brand{font-size:2rem;display:block;margin-bottom:14px}
+  footer .upper{color:var(--bone-soft);margin-bottom:30px}
+  .foot-teamsy{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:0.82rem;color:var(--bone-soft);display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+  .foot-teamsy a{color:var(--gold)}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:840px){
+    .band{grid-template-columns:1fr}
+    .info-grid{grid-template-columns:1fr;gap:30px}
+    .nav-links{display:none}
+    .nav-links.show{display:flex;position:absolute;top:80px;left:0;right:0;background:var(--noir);flex-direction:column;padding:24px 28px;gap:20px;border-bottom:1px solid var(--line)}
+    .menu-x{display:flex;background:none;border:none;cursor:pointer;color:var(--bone)}
+    nav .resa-btn.navr{display:none}
+    .form-row{flex-direction:column;gap:0}
+    .form-row .field{margin-bottom:20px}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">Démo Teamsy · restaurant fictif. <a href="index.html">Voir comment c'est fait →</a></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#" class="brand">Maison Lavigne</a>
+    <div class="nav-links" id="nl">
+      <a href="#philosophie">La maison</a>
+      <a href="#menu">Le menu</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#infos">Infos</a>
+      <a href="#resa" class="resa-btn navr">Réserver</a>
+    </div>
+    <button class="menu-x" id="mx" aria-label="Menu"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="bg"></div>
+  <div class="hero-in">
+    <div class="upper">Table gastronomique · depuis 2014</div>
+    <h1>Maison Lavigne</h1>
+    <p class="sub">Une cuisine de précision, au rythme des saisons et de la main du chef.</p>
+    <div class="stars">★ ★ ★</div>
+  </div>
+  <div class="scrollcue">Découvrir ↓</div>
+</header>
+
+<section id="philosophie" class="phil">
+  <div class="wrap center">
+    <div class="upper label reveal">Notre philosophie</div>
+    <p class="reveal">« Le produit d'abord. Le geste, ensuite. Le reste n'est que patience. » Une cuisine qui s'efface devant le produit, choisie chaque matin auprès de pêcheurs, maraîchers et éleveurs avec qui nous travaillons depuis dix ans.</p>
+    <div class="by reveal">Camille Lavigne · Cheffe</div>
+  </div>
+</section>
+
+<section id="menu" class="deg">
+  <div class="wrap">
+    <div class="deg-head reveal">
+      <div class="upper label">Menu dégustation</div>
+      <h2 class="sec-title">En sept temps</h2>
+    </div>
+    <div class="courses">
+      <div class="course reveal"><span class="no">I</span><div class="c-body"><h3>Huître & granité</h3><p>huître de Normandie, granité au concombre, aneth</p></div></div>
+      <div class="course reveal"><span class="no">II</span><div class="c-body"><h3>Langoustine</h3><p>langoustine de casier, beurre noisette, agrumes confits</p></div></div>
+      <div class="course reveal"><span class="no">III</span><div class="c-body"><h3>Cèpe & œuf</h3><p>cèpes rôtis, jaune d'œuf coulant, jus de volaille</p></div></div>
+      <div class="course reveal"><span class="no">IV</span><div class="c-body"><h3>Turbot</h3><p>turbot de ligne, fenouil braisé, sauce vierge au safran</p></div></div>
+      <div class="course reveal"><span class="no">V</span><div class="c-body"><h3>Pigeon</h3><p>pigeon de Bresse, betterave, jus à l'hibiscus</p></div></div>
+      <div class="course reveal"><span class="no">VI</span><div class="c-body"><h3>Fromages affinés</h3><p>sélection de la maison Quatrehomme</p></div></div>
+      <div class="course reveal"><span class="no">VII</span><div class="c-body"><h3>Chocolat & sarrasin</h3><p>grand cru de Madagascar, glace au sarrasin torréfié</p></div></div>
+    </div>
+    <div class="deg-price reveal">
+      <div class="amount">145 €</div>
+      <p>Accord mets & vins · 85 € · Menu végétal disponible sur demande</p>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="band">
+    <div class="cell b1 reveal"><div class="img"></div></div>
+    <div class="cell b2 reveal"><div class="img"></div></div>
+    <div class="cell b3 reveal"><div class="img"></div></div>
+  </div>
+</section>
+
+<section id="resa" class="resa-sec">
+  <div class="wrap">
+    <div class="upper label reveal">Réservation</div>
+    <h2 class="sec-title reveal">Réserver votre table</h2>
+    <div class="resa-card reveal">
+      <div class="form-row">
+        <div class="field"><label>Date</label><input type="date" value="2026-06-13"></div>
+        <div class="field"><label>Service</label><select><option>Dîner · 19h30</option><option>Dîner · 21h00</option><option>Déjeuner · 12h30</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label>Couverts</label><select><option>2 personnes</option><option>3 personnes</option><option>4 personnes</option><option>6 personnes</option></select></div>
+        <div class="field"><label>Nom</label><input type="text" placeholder="Votre nom"></div>
+      </div>
+      <button class="resa-btn" onclick="alert('Démo Teamsy — sur un vrai site, la réservation serait confirmée automatiquement et notée dans le carnet du restaurant.');return false;">Demander une réservation</button>
+      <p class="hint">Confirmation sous 2h · empreinte bancaire demandée pour les tables de 6+</p>
+    </div>
+    <div class="info-grid" id="infos">
+      <div class="reveal"><div class="upper">Adresse</div><p>9 quai des Orfèvres<br>69005 Lyon</p></div>
+      <div class="reveal"><div class="upper">Service</div><p>Mercredi – Samedi<br>Déjeuner & dîner</p></div>
+      <div class="reveal"><div class="upper">Contact</div><p>04 78 00 00 00<br>contact@maisonlavigne.fr</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="brand">Maison Lavigne</span>
+    <div class="upper">Table gastronomique · Lyon</div>
+    <div class="foot-teamsy">
+      <span>© 2026 Maison Lavigne (restaurant fictif) · Site de démonstration réalisé par</span>
+      <a href="index.html">Teamsy →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mx=document.getElementById('mx'),nl=document.getElementById('nl');
+  mx.addEventListener('click',()=>nl.classList.toggle('show'));
+  nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('show')));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teamsy — Le site de votre restaurant, en ligne en 14 jours</title>
+<meta name="description" content="Teamsy crée le site web et la réservation en ligne des restaurants indépendants. Clé en main, en ligne en 14 jours, ou la création est offerte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: oklch(0.97 0.018 75);
+    --cream-deep: oklch(0.94 0.026 73);
+    --ink: oklch(0.24 0.02 50);
+    --ink-soft: oklch(0.42 0.022 52);
+    --clay: oklch(0.64 0.16 42);
+    --clay-deep: oklch(0.52 0.15 40);
+    --olive: oklch(0.46 0.062 130);
+    --saffron: oklch(0.80 0.13 78);
+    --line: oklch(0.88 0.02 70);
+    --radius: 18px;
+    --maxw: 1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.04;letter-spacing:-0.02em;font-weight:700}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .em{font-style:italic;font-family:"Bricolage Grotesque";font-weight:500}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:oklch(0.97 0.018 75 / 0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.45rem;letter-spacing:-0.04em;display:flex;align-items:center;gap:9px}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--clay);display:inline-block;margin-bottom:2px}
+  .nav-links{display:flex;gap:30px;align-items:center;font-size:0.96rem;font-weight:500}
+  .nav-links a{color:var(--ink-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--clay)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:"Hanken Grotesk";font-weight:600;font-size:0.96rem;padding:11px 20px;border-radius:999px;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s,box-shadow .25s;cursor:pointer;border:none}
+  .btn-primary{background:var(--clay);color:var(--cream);box-shadow:0 6px 20px -8px var(--clay-deep)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px -10px var(--clay-deep)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--cream)}
+  .nav-links .menu-toggle{display:none}
+
+  /* HERO */
+  header.hero{position:relative;padding:clamp(60px,9vw,120px) 0 clamp(50px,7vw,90px)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;letter-spacing:0.02em;color:var(--clay-deep);background:oklch(0.64 0.16 42 / 0.1);padding:7px 14px;border-radius:999px;margin-bottom:26px}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:800;margin-bottom:22px}
+  .hero h1 .line2{color:var(--clay)}
+  .hero p.lede{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--ink-soft);max-width:30ch;margin-bottom:34px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .guarantee{margin-top:26px;display:flex;align-items:center;gap:11px;font-size:0.95rem;color:var(--olive);font-weight:600}
+  .guarantee svg{flex-shrink:0}
+
+  /* hero visual = mock browser */
+  .mock{position:relative}
+  .browser{background:oklch(1 0 0);border-radius:16px;box-shadow:0 30px 70px -30px oklch(0.4 0.05 50 / 0.45),0 6px 18px -10px oklch(0.4 0.05 50 / 0.3);overflow:hidden;border:1px solid var(--line);transform:rotate(1.2deg)}
+  .browser-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:var(--cream-deep);border-bottom:1px solid var(--line)}
+  .browser-bar i{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .browser-bar .u{flex:1;margin-left:12px;background:oklch(1 0 0);border-radius:6px;font-size:0.72rem;color:var(--ink-soft);padding:4px 11px;font-family:"Hanken Grotesk"}
+  .shot{aspect-ratio:4/3.1;position:relative;background:linear-gradient(150deg,oklch(0.55 0.13 40),oklch(0.32 0.06 45));color:var(--cream);padding:30px;display:flex;flex-direction:column;justify-content:flex-end}
+  .shot::before{content:"";position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80");background-size:cover;background-position:center;opacity:0.78;mix-blend-mode:overlay}
+  .shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,oklch(0.25 0.05 42 / 0.85))}
+  .shot-content{position:relative;z-index:2}
+  .shot-content .tag{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;opacity:0.85;margin-bottom:8px}
+  .shot-content h3{font-size:1.9rem;font-weight:700;margin-bottom:6px}
+  .shot-content p{font-size:0.9rem;opacity:0.9}
+  .shot-resa{position:relative;z-index:2;margin-top:18px;background:oklch(1 0 0 / 0.96);color:var(--ink);border-radius:12px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 10px 30px -12px oklch(0 0 0 / 0.4)}
+  .shot-resa span{font-size:0.86rem;font-weight:600}
+  .shot-resa .mini{background:var(--clay);color:var(--cream);font-size:0.78rem;padding:7px 14px;border-radius:999px;font-weight:600}
+  .float-badge{position:absolute;background:oklch(1 0 0);border-radius:14px;padding:13px 17px;box-shadow:0 18px 40px -16px oklch(0.4 0.05 50 / 0.5);display:flex;align-items:center;gap:11px;border:1px solid var(--line)}
+  .float-badge .num{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.5rem;color:var(--clay);line-height:1}
+  .float-badge .lbl{font-size:0.74rem;color:var(--ink-soft);line-height:1.25;font-weight:500}
+  .fb1{bottom:-26px;left:-26px}
+
+  /* SECTIONS */
+  section{padding:clamp(60px,8vw,110px) 0}
+  .sec-head{max-width:40ch}
+  .sec-head .kick{font-size:0.82rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--clay);margin-bottom:14px}
+  .sec-head h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:16px}
+  .sec-head p{font-size:1.1rem;color:var(--ink-soft)}
+
+  /* PROBLEM strip */
+  .problem{background:var(--ink);color:var(--cream)}
+  .problem .sec-head h2{color:var(--cream)}
+  .problem .sec-head .kick{color:var(--saffron)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:54px}
+  .stat .big{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(2.6rem,5vw,3.6rem);color:var(--saffron);line-height:1;letter-spacing:-0.03em}
+  .stat p{color:oklch(0.82 0.02 70);margin-top:12px;font-size:1rem;max-width:26ch}
+  .stat{padding-top:24px;border-top:1px solid oklch(0.4 0.02 60)}
+
+  /* DEMOS */
+  .demos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:54px}
+  .demo-card{display:block;border-radius:var(--radius);overflow:hidden;background:oklch(1 0 0);border:1px solid var(--line);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+  .demo-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -24px oklch(0.4 0.05 50 / 0.5)}
+  .demo-thumb{aspect-ratio:4/3.4;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px}
+  .demo-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,oklch(0.18 0.03 40 / 0.78))}
+  .demo-thumb .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .demo-card:hover .demo-thumb .img{transform:scale(1.06)}
+  .d-bistrot{background:linear-gradient(150deg,oklch(0.5 0.12 30),oklch(0.3 0.07 35))}
+  .d-bistrot .img{background-image:url("https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80");opacity:.82;mix-blend-mode:overlay}
+  .d-gastro{background:linear-gradient(150deg,oklch(0.34 0.03 250),oklch(0.2 0.02 250))}
+  .d-gastro .img{background-image:url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80");opacity:.8;mix-blend-mode:overlay}
+  .d-street{background:linear-gradient(150deg,oklch(0.68 0.18 55),oklch(0.5 0.16 35))}
+  .d-street .img{background-image:url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=80");opacity:.82;mix-blend-mode:overlay}
+  .demo-thumb .badge{position:relative;z-index:2;color:var(--cream);font-size:0.74rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;background:oklch(0 0 0 / 0.3);backdrop-filter:blur(4px);padding:6px 12px;border-radius:999px}
+  .demo-body{padding:22px}
+  .demo-body h3{font-size:1.5rem;margin-bottom:6px}
+  .demo-body p{color:var(--ink-soft);font-size:0.96rem;margin-bottom:14px}
+  .demo-body .visit{font-weight:600;color:var(--clay);font-size:0.95rem;display:inline-flex;align-items:center;gap:7px}
+  .demo-card:hover .visit svg{transform:translateX(4px)}
+  .demo-body .visit svg{transition:transform .3s}
+
+  /* PROCESS */
+  .process{background:var(--cream-deep)}
+  .steps{margin-top:50px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .step{position:relative}
+  .step .day{font-family:"Bricolage Grotesque";font-weight:800;font-size:0.9rem;color:var(--clay);background:var(--cream);border:1.5px solid var(--clay);width:fit-content;padding:5px 13px;border-radius:999px;margin-bottom:16px}
+  .step h3{font-size:1.18rem;margin-bottom:8px}
+  .step p{color:var(--ink-soft);font-size:0.94rem}
+  .step::after{content:"";position:absolute;top:14px;left:calc(100% - 8px);width:22px;height:1.5px;background:var(--line)}
+  .step:last-child::after{display:none}
+
+  /* PRICING */
+  .price-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;margin-top:54px;align-items:stretch}
+  .price-card{border-radius:22px;padding:38px 34px;border:1px solid var(--line);background:oklch(1 0 0);display:flex;flex-direction:column}
+  .price-card.feature{background:var(--ink);color:var(--cream);border:none;position:relative;overflow:hidden}
+  .price-card.feature::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:oklch(0.64 0.16 42 / 0.25);filter:blur(20px)}
+  .price-card .ptag{font-size:0.82rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--clay);margin-bottom:18px}
+  .price-card.feature .ptag{color:var(--saffron)}
+  .price-amount{font-family:"Bricolage Grotesque";font-weight:800;font-size:3.2rem;letter-spacing:-0.03em;line-height:1}
+  .price-amount small{font-size:1rem;font-weight:600;color:var(--ink-soft);font-family:"Hanken Grotesk"}
+  .price-card.feature .price-amount small{color:oklch(0.82 0.02 70)}
+  .price-sub{color:var(--ink-soft);margin:10px 0 24px;font-size:0.98rem}
+  .price-card.feature .price-sub{color:oklch(0.82 0.02 70)}
+  .feats{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:30px;flex:1}
+  .feats li{display:flex;gap:11px;align-items:flex-start;font-size:0.97rem}
+  .feats li svg{flex-shrink:0;margin-top:3px;color:var(--clay)}
+  .price-card.feature .feats li svg{color:var(--saffron)}
+  .price-card .btn{width:100%;justify-content:center}
+  .price-card.feature .btn-primary{background:var(--saffron);color:var(--ink)}
+  .price-note{margin-top:28px;text-align:center;color:var(--ink-soft);font-size:0.95rem}
+  .pilot{margin-top:26px;background:oklch(0.46 0.062 130 / 0.1);border:1px dashed var(--olive);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px}
+  .pilot .ic{font-family:"Bricolage Grotesque";font-weight:800;color:var(--olive);font-size:1.3rem;flex-shrink:0}
+  .pilot p{font-size:0.97rem;color:var(--ink)}
+  .pilot b{color:var(--olive)}
+
+  /* ABOUT */
+  .about{background:var(--clay);color:var(--cream)}
+  .about-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:50px;align-items:center}
+  .about .kick{color:oklch(0.92 0.04 80)}
+  .about h2{font-size:clamp(1.9rem,3.5vw,2.7rem);color:var(--cream);margin-bottom:20px}
+  .about p{font-size:1.08rem;color:oklch(0.95 0.03 78);margin-bottom:16px;max-width:54ch}
+  .about .signoff{font-family:"Bricolage Grotesque";font-style:italic;font-weight:500;font-size:1.2rem;margin-top:10px}
+  .portrait{aspect-ratio:1/1;border-radius:24px;background:linear-gradient(150deg,oklch(0.5 0.1 40),oklch(0.32 0.06 42));position:relative;overflow:hidden;box-shadow:0 26px 60px -26px oklch(0.2 0.05 40)}
+  .portrait .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:oklch(0.92 0.04 80);text-align:center;padding:24px}
+  .portrait .ph .big{font-family:"Bricolage Grotesque";font-weight:800;font-size:4rem;opacity:0.35}
+  .portrait .ph small{font-size:0.82rem;opacity:0.7;margin-top:8px}
+
+  /* CTA */
+  .cta{text-align:center}
+  .cta .box{background:var(--ink);border-radius:28px;padding:clamp(44px,6vw,72px) 30px;color:var(--cream);position:relative;overflow:hidden}
+  .cta .box::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 0%,oklch(0.64 0.16 42 / 0.3),transparent 55%)}
+  .cta h2{font-size:clamp(2rem,4.5vw,3.3rem);color:var(--cream);margin-bottom:18px;position:relative}
+  .cta p{color:oklch(0.85 0.02 70);font-size:1.15rem;max-width:44ch;margin:0 auto 34px;position:relative}
+  .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+  .cta .btn-wa{background:oklch(0.72 0.16 155);color:oklch(0.2 0.04 155)}
+  .cta .btn-cal{background:var(--cream);color:var(--ink)}
+
+  /* FOOTER */
+  footer{padding:54px 0 40px;border-top:1px solid var(--line)}
+  .foot-in{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap}
+  .foot-in .logo{margin-bottom:12px}
+  footer p{color:var(--ink-soft);font-size:0.92rem;max-width:34ch}
+  .foot-links{display:flex;gap:40px;flex-wrap:wrap}
+  .foot-col h4{font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink);margin-bottom:14px;font-family:"Hanken Grotesk";font-weight:700}
+  .foot-col a{display:block;color:var(--ink-soft);font-size:0.94rem;margin-bottom:9px;transition:color .2s}
+  .foot-col a:hover{color:var(--clay)}
+  .foot-bottom{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--ink-soft);font-size:0.85rem}
+
+  /* placeholder pill */
+  .ph-pill{background:var(--saffron);color:var(--ink);font-weight:700;padding:0 6px;border-radius:5px;font-size:0.92em}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .hero p.lede{max-width:none}
+    .stats{grid-template-columns:1fr;gap:0}
+    .stat{padding:24px 0}
+    .demos-grid{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+    .step::after{display:none}
+    .price-grid{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr;gap:32px}
+    .portrait{max-width:320px}
+    .nav-links{display:none}
+    .nav-links.show{display:flex;position:absolute;top:68px;left:0;right:0;background:var(--cream);flex-direction:column;padding:20px 24px;gap:18px;border-bottom:1px solid var(--line)}
+    .menu-toggle{display:flex !important;background:none;border:none;cursor:pointer}
+    nav .btn-primary.nav-cta{display:none}
+  }
+  @media(max-width:560px){
+    .steps{grid-template-columns:1fr}
+    .float-badge{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#" class="logo">Teamsy<span class="dot"></span></a>
+    <div class="nav-links" id="navlinks">
+      <a href="#demos">Exemples</a>
+      <a href="#process">Comment ça marche</a>
+      <a href="#pricing">Tarifs</a>
+      <a href="#about">Qui je suis</a>
+      <a href="#contact" class="btn btn-primary nav-cta">Voir une maquette</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal in">
+      <span class="eyebrow">● Sites web pour restaurants indépendants</span>
+      <h1>Votre restaurant mérite mieux<br><span class="line2">qu'une page Facebook.</span></h1>
+      <p class="lede">Un vrai site, avec la réservation en ligne intégrée. Clé en main, en ligne en 14 jours.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Voir une maquette de votre resto</a>
+        <a href="#demos" class="btn btn-ghost">Voir des exemples</a>
+      </div>
+      <div class="guarantee">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l2.4 5 5.6.5-4.2 3.6 1.3 5.4L12 19l-5.1 2.5 1.3-5.4L4 12.5 9.6 12z"/></svg>
+        En ligne en 14 jours, ou la création est offerte.
+      </div>
+    </div>
+    <div class="mock reveal in">
+      <div class="browser">
+        <div class="browser-bar">
+          <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
+          <span class="u">lechaudron-paris.fr</span>
+        </div>
+        <div class="shot">
+          <div class="shot-content">
+            <span class="tag">Bistrot · Paris 11ᵉ</span>
+            <h3>Le Chaudron</h3>
+            <p>Cuisine de marché, à deux pas de la Bastille.</p>
+          </div>
+          <div class="shot-resa">
+            <span>Réserver une table</span>
+            <span class="mini">Ce soir · 2 pers.</span>
+          </div>
+        </div>
+      </div>
+      <div class="float-badge fb1">
+        <span class="num">+30%</span>
+        <span class="lbl">de réservations<br>passent en ligne</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="problem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick">Le vrai coût d'une vitrine absente</div>
+      <h2>Vos clients vous cherchent. Ils ne vous trouvent pas.</h2>
+    </div>
+    <div class="stats">
+      <div class="stat reveal">
+        <div class="big">1 sur 5</div>
+        <p>appels à un restaurant reste sans réponse, en plein service.</p>
+      </div>
+      <div class="stat reveal">
+        <div class="big">62%</div>
+        <p>des clients préfèrent réserver en ligne plutôt qu'au téléphone.</p>
+      </div>
+      <div class="stat reveal">
+        <div class="big">&lt;40%</div>
+        <p>des restaurants indépendants ont un site web pro et à jour.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick">Des exemples concrets</div>
+      <h2>Trois styles, un même soin du détail.</h2>
+      <p>Des sites de démonstration, librement visitables. Le vôtre sera à votre image.</p>
+    </div>
+    <div class="demos-grid">
+      <a href="bistrot.html" class="demo-card reveal">
+        <div class="demo-thumb d-bistrot"><div class="img"></div><span class="badge">Bistrot</span></div>
+        <div class="demo-body">
+          <h3>Le Chaudron</h3>
+          <p>Bistrot de quartier, cuisine de marché. Chaleureux et intemporel.</p>
+          <span class="visit">Visiter la démo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a href="gastro.html" class="demo-card reveal">
+        <div class="demo-thumb d-gastro"><div class="img"></div><span class="badge">Gastronomique</span></div>
+        <div class="demo-body">
+          <h3>Maison Lavigne</h3>
+          <p>Table gastronomique. Élégant, sobre, une étoile en ligne de mire.</p>
+          <span class="visit">Visiter la démo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a href="street-food.html" class="demo-card reveal">
+        <div class="demo-thumb d-street"><div class="img"></div><span class="badge">Street-food</span></div>
+        <div class="demo-body">
+          <h3>Bao Brothers</h3>
+          <p>Street-food asiatique. Vif, coloré, fait pour le mobile.</p>
+          <span class="visit">Visiter la démo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick">Simple, et rapide</div>
+      <h2>De la première discussion à la mise en ligne, 14 jours.</h2>
+      <p>Vous me donnez deux heures au départ. Je m'occupe de tout le reste.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="day">Jour 0</div>
+        <h3>On échange</h3>
+        <p>Un questionnaire simple : photos, menu, horaires, votre histoire. 15 minutes.</p>
+      </div>
+      <div class="step reveal">
+        <div class="day">Jour 1–5</div>
+        <h3>Je crée</h3>
+        <p>Deux directions de design proposées. Vous choisissez, on ajuste ensemble.</p>
+      </div>
+      <div class="step reveal">
+        <div class="day">Jour 7–12</div>
+        <h3>J'intègre tout</h3>
+        <p>Réservation en ligne, fiche Google, référencement local. Plus une mini-formation.</p>
+      </div>
+      <div class="step reveal">
+        <div class="day">Jour 14</div>
+        <h3>En ligne</h3>
+        <p>Votre site est public. Une modif à faire ? Un simple message suffit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kick">Tarifs transparents</div>
+      <h2>Le prix d'un bon four à pizza. Pour des années de vitrine.</h2>
+      <p>Trois à cinq fois moins cher qu'une agence. Sans engagement sur l'abonnement.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <div class="ptag">La création</div>
+        <div class="price-amount">990<small> € une fois</small></div>
+        <p class="price-sub">Votre site sur mesure, prêt à l'emploi.</p>
+        <ul class="feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Site vitrine : menu, photos, histoire, infos</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Réservation en ligne intégrée</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Fiche Google Business optimisée</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Parfait sur mobile, là où sont vos clients</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Démarrer mon site</a>
+      </div>
+      <div class="price-card feature reveal">
+        <div class="ptag">L'abonnement</div>
+        <div class="price-amount">79<small> €/mois · sans engagement</small></div>
+        <p class="price-sub">Pour que votre site reste vivant et à jour.</p>
+        <ul class="feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Hébergement et nom de domaine inclus</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Modifications illimitées par simple message</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Maintenance et sécurité gérées</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Menu, horaires, photos changés en 24h</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Voir une maquette gratuite</a>
+      </div>
+    </div>
+    <div class="pilot reveal">
+      <span class="ic">★</span>
+      <p><b>Offre de lancement.</b> Les 3 premiers restaurants : la création à <b>490 €</b> au lieu de 990 €, en échange d'un témoignage. La réservation reste chez vous, à votre nom : pas de dépendance, pas de commission par couvert.</p>
+    </div>
+    <p class="price-note">Pas de frais cachés. La réservation (Zenchef ou équivalent) est contractée directement par vos soins ; je m'occupe de l'installation.</p>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div class="portrait reveal">
+      <div class="ph">
+        <span class="big">A.</span>
+        <small><span class="ph-pill">À remplacer : votre photo</span></small>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="kick">Qui je suis</div>
+      <h2>Bonjour, moi c'est <span class="ph-pill">Antonin</span>.</h2>
+      <p>Je crée des sites pour les restaurants indépendants de <span class="ph-pill">votre ville</span>. Pas une agence avec dix interlocuteurs : une seule personne, joignable, qui connaît votre projet et le suit du début à la fin.</p>
+      <p>J'ai monté Teamsy parce qu'un bon restaurant ne devrait pas perdre des clients à cause d'un site vieillissant ou d'un téléphone qui sonne dans le vide. La technologie d'aujourd'hui permet de faire beau, vite, et abordable. J'en fais profiter votre cuisine.</p>
+      <p class="signoff">« J'ai pris la liberté de préparer une maquette pour vous. Ça prend deux minutes à regarder. »</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta">
+  <div class="wrap">
+    <div class="box reveal">
+      <h2>On regarde à quoi ressemblerait votre site ?</h2>
+      <p>Dites-moi le nom de votre restaurant. Je prépare une maquette gratuite, sans engagement.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/PLACEHOLDER_NUMERO" class="btn btn-wa" id="waBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-1.9-1.2 7.2 7.2 0 01-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4c.1-.2.1-.3.2-.5s0-.3 0-.5-.5-1.3-.7-1.7-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c.6.3 1.1.4 1.5.5a3.5 3.5 0 001.6.1c.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1-.2-.2-.4-.3z"/></svg>
+          Écrire sur WhatsApp
+        </a>
+        <a href="https://calendly.com/PLACEHOLDER_CALENDLY" class="btn btn-cal" id="calBtn">Réserver 20 min d'appel</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <a href="#" class="logo">Teamsy<span class="dot"></span></a>
+        <p>Sites web et réservation en ligne pour les restaurants indépendants.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Le site</h4>
+          <a href="#demos">Exemples</a>
+          <a href="#process">Comment ça marche</a>
+          <a href="#pricing">Tarifs</a>
+        </div>
+        <div class="foot-col">
+          <h4>Les démos</h4>
+          <a href="bistrot.html">Le Chaudron</a>
+          <a href="gastro.html">Maison Lavigne</a>
+          <a href="street-food.html">Bao Brothers</a>
+        </div>
+        <div class="foot-col">
+          <h4>Contact</h4>
+          <a href="#contact"><span class="ph-pill">WhatsApp</span></a>
+          <a href="#contact"><span class="ph-pill">email pro</span></a>
+          <a href="#contact"><span class="ph-pill">Calendly</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Teamsy. <span class="ph-pill">SIRET à compléter</span> · TVA non applicable, art. 293 B du CGI.</span>
+      <span>Fait avec soin, près de chez vous.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const t=document.getElementById('menuToggle'),n=document.getElementById('navlinks');
+  t.addEventListener('click',()=>n.classList.toggle('show'));
+  n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>n.classList.remove('show')));
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
