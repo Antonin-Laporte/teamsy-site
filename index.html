@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teamsy — Le site de votre restaurant, en ligne en 14 jours</title>
-<meta name="description" content="Teamsy crée le site web et la réservation en ligne des restaurants indépendants. Clé en main, en ligne en 14 jours, ou la création est offerte.">
+<title>Teamsy · Le site de votre restaurant, remis à jour et en ligne en 14 jours</title>
+<meta name="description" content="Teamsy refait le site des restaurants indépendants : design actuel, réservation en ligne intégrée, carte modifiée en 48h sur simple message. Votre adresse et votre référencement sont conservés.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
     --line: oklch(0.88 0.02 70);
     --radius: 18px;
     --maxw: 1180px;
+    --ease: cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -35,17 +36,17 @@
   h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.04;letter-spacing:-0.02em;font-weight:700}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .em{font-style:italic;font-family:"Bricolage Grotesque";font-weight:500}
+  :focus-visible{outline:2.5px solid var(--clay);outline-offset:3px;border-radius:4px}
 
   /* NAV */
   nav{position:sticky;top:0;z-index:50;background:oklch(0.97 0.018 75 / 0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
   .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.45rem;letter-spacing:-0.04em;display:flex;align-items:center;gap:9px}
   .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--clay);display:inline-block;margin-bottom:2px}
-  .nav-links{display:flex;gap:30px;align-items:center;font-size:0.96rem;font-weight:500}
+  .nav-links{display:flex;gap:28px;align-items:center;font-size:0.96rem;font-weight:500}
   .nav-links a{color:var(--ink-soft);transition:color .2s}
   .nav-links a:hover{color:var(--clay)}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-family:"Hanken Grotesk";font-weight:600;font-size:0.96rem;padding:11px 20px;border-radius:999px;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s,box-shadow .25s;cursor:pointer;border:none}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:"Hanken Grotesk";font-weight:600;font-size:0.96rem;padding:12px 20px;min-height:44px;border-radius:999px;transition:transform .25s var(--ease),background .25s,box-shadow .25s,color .25s;cursor:pointer;border:none}
   .btn-primary{background:var(--clay);color:var(--cream);box-shadow:0 6px 20px -8px var(--clay-deep)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px -10px var(--clay-deep)}
   .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
@@ -53,23 +54,42 @@
   .nav-links .menu-toggle{display:none}
 
   /* HERO */
-  header.hero{position:relative;padding:clamp(60px,9vw,120px) 0 clamp(50px,7vw,90px)}
+  header.hero{position:relative;padding:clamp(56px,8vw,110px) 0 clamp(50px,7vw,90px)}
   .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.82rem;font-weight:600;letter-spacing:0.02em;color:var(--clay-deep);background:oklch(0.64 0.16 42 / 0.1);padding:7px 14px;border-radius:999px;margin-bottom:26px}
-  .hero h1{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:800;margin-bottom:22px}
+  .hero h1{font-size:clamp(2.5rem,5.6vw,4.4rem);font-weight:800;margin-bottom:22px}
   .hero h1 .line2{color:var(--clay)}
-  .hero p.lede{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--ink-soft);max-width:30ch;margin-bottom:34px}
+  .hero p.lede{font-size:clamp(1.05rem,1.6vw,1.26rem);color:var(--ink-soft);max-width:34ch;margin-bottom:32px}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
   .guarantee{margin-top:26px;display:flex;align-items:center;gap:11px;font-size:0.95rem;color:var(--olive);font-weight:600}
   .guarantee svg{flex-shrink:0}
 
-  /* hero visual = mock browser */
+  /* HERO MOCK : avant / après */
   .mock{position:relative}
+  .switch{display:inline-flex;background:var(--cream-deep);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:16px;gap:2px}
+  .switch button{font-family:"Hanken Grotesk";font-size:0.82rem;font-weight:600;padding:7px 17px;border-radius:999px;border:none;background:transparent;color:var(--ink-soft);cursor:pointer;transition:background .3s var(--ease),color .3s}
+  .switch button[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
   .browser{background:oklch(1 0 0);border-radius:16px;box-shadow:0 30px 70px -30px oklch(0.4 0.05 50 / 0.45),0 6px 18px -10px oklch(0.4 0.05 50 / 0.3);overflow:hidden;border:1px solid var(--line);transform:rotate(1.2deg)}
   .browser-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:var(--cream-deep);border-bottom:1px solid var(--line)}
   .browser-bar i{width:10px;height:10px;border-radius:50%;display:inline-block}
   .browser-bar .u{flex:1;margin-left:12px;background:oklch(1 0 0);border-radius:6px;font-size:0.72rem;color:var(--ink-soft);padding:4px 11px;font-family:"Hanken Grotesk"}
-  .shot{aspect-ratio:4/3.1;position:relative;background:linear-gradient(150deg,oklch(0.55 0.13 40),oklch(0.32 0.06 45));color:var(--cream);padding:30px;display:flex;flex-direction:column;justify-content:flex-end}
+  .frames{position:relative;aspect-ratio:4/3.1}
+  .frame{position:absolute;inset:0;opacity:0;transition:opacity .55s var(--ease),transform .55s var(--ease);transform:scale(1.015);pointer-events:none}
+  .frame.on{opacity:1;transform:none;pointer-events:auto}
+
+  /* frame "avant" : le site de 2019 */
+  .old{background:oklch(0.995 0.001 250);color:oklch(0.34 0.008 250);font-family:Georgia,"Times New Roman",serif;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:9px}
+  .old .name{font-size:1.35rem;letter-spacing:0.16em;color:oklch(0.28 0.01 250)}
+  .old .rule{width:56px;height:1px;background:oklch(0.78 0.005 250)}
+  .old .sub{font-size:0.76rem;font-style:italic;color:oklch(0.52 0.008 250)}
+  .old .welcome{font-size:0.85rem;margin-top:4px}
+  .old .lnks{display:flex;gap:14px;font-size:0.78rem;margin-top:6px;flex-wrap:wrap;justify-content:center}
+  .old .lnks span{color:oklch(0.45 0.15 265);text-decoration:underline}
+  .old .hours{font-size:0.74rem;color:oklch(0.55 0.008 250);margin-top:8px}
+  .old .stamp{position:absolute;bottom:12px;left:0;right:0;font-size:0.63rem;color:oklch(0.68 0.006 250);font-family:"Hanken Grotesk"}
+
+  /* frame "après" */
+  .shot{position:relative;background:linear-gradient(150deg,oklch(0.55 0.13 40),oklch(0.32 0.06 45));color:var(--cream);padding:30px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
   .shot::before{content:"";position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80");background-size:cover;background-position:center;opacity:0.78;mix-blend-mode:overlay}
   .shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,oklch(0.25 0.05 42 / 0.85))}
   .shot-content{position:relative;z-index:2}
@@ -86,27 +106,36 @@
 
   /* SECTIONS */
   section{padding:clamp(60px,8vw,110px) 0}
-  .sec-head{max-width:40ch}
+  .sec-head{max-width:42ch}
   .sec-head .kick{font-size:0.82rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--clay);margin-bottom:14px}
   .sec-head h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:16px}
   .sec-head p{font-size:1.1rem;color:var(--ink-soft)}
 
-  /* PROBLEM strip */
+  /* DIAGNOSTIC */
   .problem{background:var(--ink);color:var(--cream)}
+  .problem .sec-head{max-width:34ch}
   .problem .sec-head h2{color:var(--cream)}
   .problem .sec-head .kick{color:var(--saffron)}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:54px}
-  .stat .big{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(2.6rem,5vw,3.6rem);color:var(--saffron);line-height:1;letter-spacing:-0.03em}
-  .stat p{color:oklch(0.82 0.02 70);margin-top:12px;font-size:1rem;max-width:26ch}
-  .stat{padding-top:24px;border-top:1px solid oklch(0.4 0.02 60)}
+  .problem .sec-head p{color:oklch(0.8 0.02 70)}
+  .signs{display:grid;grid-template-columns:1fr 1fr;gap:10px 34px;margin-top:48px}
+  .sign{display:flex;align-items:flex-start;gap:15px;padding:17px 4px;background:none;border:none;border-top:1px solid oklch(0.4 0.02 60);text-align:left;cursor:pointer;font-family:inherit;font-size:1rem;line-height:1.5;color:oklch(0.86 0.015 70);transition:color .25s}
+  .sign:hover{color:var(--cream)}
+  .sign .box{flex-shrink:0;width:23px;height:23px;border-radius:7px;border:1.5px solid oklch(0.52 0.02 60);margin-top:3px;display:grid;place-items:center;transition:background .25s var(--ease),border-color .25s}
+  .sign .box svg{opacity:0;transform:scale(.5);transition:opacity .2s,transform .3s var(--ease);color:var(--ink)}
+  .sign[aria-pressed="true"] .box{background:var(--saffron);border-color:var(--saffron)}
+  .sign[aria-pressed="true"] .box svg{opacity:1;transform:none}
+  .sign[aria-pressed="true"]{color:var(--cream)}
+  .verdict{margin-top:38px;padding-top:26px;border-top:1px solid oklch(0.4 0.02 60);display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .verdict .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:2.6rem;color:var(--saffron);line-height:1;letter-spacing:-0.03em;min-width:1.2ch}
+  .verdict p{font-size:1.12rem;color:oklch(0.88 0.02 70);max-width:48ch;transition:opacity .3s}
 
   /* DEMOS */
   .demos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:54px}
-  .demo-card{display:block;border-radius:var(--radius);overflow:hidden;background:oklch(1 0 0);border:1px solid var(--line);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+  .demo-card{display:block;border-radius:var(--radius);overflow:hidden;background:oklch(1 0 0);border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s}
   .demo-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -24px oklch(0.4 0.05 50 / 0.5)}
   .demo-thumb{aspect-ratio:4/3.4;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px}
   .demo-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,oklch(0.18 0.03 40 / 0.78))}
-  .demo-thumb .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .demo-thumb .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .6s var(--ease)}
   .demo-card:hover .demo-thumb .img{transform:scale(1.06)}
   .d-bistrot{background:linear-gradient(150deg,oklch(0.5 0.12 30),oklch(0.3 0.07 35))}
   .d-bistrot .img{background-image:url("https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80");opacity:.82;mix-blend-mode:overlay}
@@ -122,8 +151,20 @@
   .demo-card:hover .visit svg{transform:translateX(4px)}
   .demo-body .visit svg{transition:transform .3s}
 
+  /* MIGRATION */
+  .keep{background:var(--cream-deep)}
+  .keep-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;align-items:start}
+  .keep-grid .sec-head{max-width:26ch}
+  .keep-grid .sec-head p{margin-top:18px;font-size:1.02rem}
+  .points{display:flex;flex-direction:column}
+  .point{padding:26px 0;border-bottom:1px solid var(--line)}
+  .point:first-child{padding-top:0}
+  .point:last-child{border-bottom:none;padding-bottom:0}
+  .point h3{font-size:1.24rem;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+  .point h3 svg{color:var(--olive);flex-shrink:0}
+  .point p{color:var(--ink-soft);font-size:1rem;max-width:56ch}
+
   /* PROCESS */
-  .process{background:var(--cream-deep)}
   .steps{margin-top:50px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
   .step{position:relative}
   .step .day{font-family:"Bricolage Grotesque";font-weight:800;font-size:0.9rem;color:var(--clay);background:var(--cream);border:1.5px solid var(--clay);width:fit-content;padding:5px 13px;border-radius:999px;margin-bottom:16px}
@@ -148,7 +189,7 @@
   .feats li{display:flex;gap:11px;align-items:flex-start;font-size:0.97rem}
   .feats li svg{flex-shrink:0;margin-top:3px;color:var(--clay)}
   .price-card.feature .feats li svg{color:var(--saffron)}
-  .price-card .btn{width:100%;justify-content:center}
+  .price-card .btn{width:100%}
   .price-card.feature .btn-primary{background:var(--saffron);color:var(--ink)}
   .price-note{margin-top:28px;text-align:center;color:var(--ink-soft);font-size:0.95rem}
   .pilot{margin-top:26px;background:oklch(0.46 0.062 130 / 0.1);border:1px dashed var(--olive);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px}
@@ -159,7 +200,7 @@
   /* ABOUT */
   .about{background:var(--clay);color:var(--cream)}
   .about-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:50px;align-items:center}
-  .about .kick{color:oklch(0.92 0.04 80)}
+  .about .kick{font-size:0.82rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:oklch(0.92 0.04 80);margin-bottom:14px}
   .about h2{font-size:clamp(1.9rem,3.5vw,2.7rem);color:var(--cream);margin-bottom:20px}
   .about p{font-size:1.08rem;color:oklch(0.95 0.03 78);margin-bottom:16px;max-width:54ch}
   .about .signoff{font-family:"Bricolage Grotesque";font-style:italic;font-weight:500;font-size:1.2rem;margin-top:10px}
@@ -173,7 +214,7 @@
   .cta .box{background:var(--ink);border-radius:28px;padding:clamp(44px,6vw,72px) 30px;color:var(--cream);position:relative;overflow:hidden}
   .cta .box::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 0%,oklch(0.64 0.16 42 / 0.3),transparent 55%)}
   .cta h2{font-size:clamp(2rem,4.5vw,3.3rem);color:var(--cream);margin-bottom:18px;position:relative}
-  .cta p{color:oklch(0.85 0.02 70);font-size:1.15rem;max-width:44ch;margin:0 auto 34px;position:relative}
+  .cta p{color:oklch(0.85 0.02 70);font-size:1.15rem;max-width:46ch;margin:0 auto 34px;position:relative}
   .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
   .cta .btn-wa{background:oklch(0.72 0.16 155);color:oklch(0.2 0.04 155)}
   .cta .btn-cal{background:var(--cream);color:var(--ink)}
@@ -189,19 +230,19 @@
   .foot-col a:hover{color:var(--clay)}
   .foot-bottom{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--ink-soft);font-size:0.85rem}
 
-  /* placeholder pill */
   .ph-pill{background:var(--saffron);color:var(--ink);font-weight:700;padding:0 6px;border-radius:5px;font-size:0.92em}
 
   /* reveal */
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
   .reveal.in{opacity:1;transform:none}
 
   @media(max-width:900px){
-    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .hero-grid{grid-template-columns:1fr;gap:44px}
     .hero p.lede{max-width:none}
-    .stats{grid-template-columns:1fr;gap:0}
-    .stat{padding:24px 0}
+    .signs{grid-template-columns:1fr;gap:0}
     .demos-grid{grid-template-columns:1fr}
+    .keep-grid{grid-template-columns:1fr;gap:36px}
+    .keep-grid .sec-head{max-width:none}
     .steps{grid-template-columns:1fr 1fr}
     .step::after{display:none}
     .price-grid{grid-template-columns:1fr}
@@ -215,8 +256,13 @@
   @media(max-width:560px){
     .steps{grid-template-columns:1fr}
     .float-badge{display:none}
+    .browser{transform:none}
   }
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}*{scroll-behavior:auto}}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .frame{transition:opacity .01s}
+    *{scroll-behavior:auto}
+  }
 </style>
 </head>
 <body>
@@ -225,13 +271,13 @@
   <div class="wrap nav-in">
     <a href="#" class="logo">Teamsy<span class="dot"></span></a>
     <div class="nav-links" id="navlinks">
+      <a href="#diagnostic">Le test</a>
       <a href="#demos">Exemples</a>
-      <a href="#process">Comment ça marche</a>
+      <a href="#migration">J'ai déjà un site</a>
       <a href="#pricing">Tarifs</a>
-      <a href="#about">Qui je suis</a>
-      <a href="#contact" class="btn btn-primary nav-cta">Voir une maquette</a>
+      <a href="#contact" class="btn btn-primary nav-cta">Voir ma maquette</a>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
@@ -240,11 +286,11 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="reveal in">
-      <span class="eyebrow">● Sites web pour restaurants indépendants</span>
-      <h1>Votre restaurant mérite mieux<br><span class="line2">qu'une page Facebook.</span></h1>
-      <p class="lede">Un vrai site, avec la réservation en ligne intégrée. Clé en main, en ligne en 14 jours.</p>
+      <span class="eyebrow">● Refonte et réservation en ligne pour restaurants indépendants</span>
+      <h1>Votre carte change chaque saison.<br><span class="line2">Votre site, jamais.</span></h1>
+      <p class="lede">Un site à jour, rapide, avec la réservation intégrée. Et une carte qu'on modifie en 48h, sur simple message.</p>
       <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary">Voir une maquette de votre resto</a>
+        <a href="#contact" class="btn btn-primary">Voir la maquette de mon resto</a>
         <a href="#demos" class="btn btn-ghost">Voir des exemples</a>
       </div>
       <div class="guarantee">
@@ -252,51 +298,86 @@
         En ligne en 14 jours, ou la création est offerte.
       </div>
     </div>
+
     <div class="mock reveal in">
+      <div class="switch" role="group" aria-label="Comparer avant et après">
+        <button type="button" id="btnAvant" aria-pressed="true" aria-controls="frameAvant">Avant</button>
+        <button type="button" id="btnApres" aria-pressed="false" aria-controls="frameApres">Après</button>
+      </div>
       <div class="browser">
         <div class="browser-bar">
           <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
           <span class="u">lechaudron-paris.fr</span>
         </div>
-        <div class="shot">
-          <div class="shot-content">
-            <span class="tag">Bistrot · Paris 11ᵉ</span>
-            <h3>Le Chaudron</h3>
-            <p>Cuisine de marché, à deux pas de la Bastille.</p>
+        <div class="frames">
+          <div class="frame old on" id="frameAvant">
+            <div class="name">LE CHAUDRON</div>
+            <div class="rule"></div>
+            <div class="sub">Restaurant traditionnel français</div>
+            <div class="welcome">Bienvenue sur notre site internet !</div>
+            <div class="lnks"><span>Voir la carte (PDF)</span><span>Nous contacter</span><span>Plan d'accès</span></div>
+            <div class="hours">Horaires : nous consulter par téléphone</div>
+            <div class="stamp">Dernière mise à jour : 14 mars 2019</div>
           </div>
-          <div class="shot-resa">
-            <span>Réserver une table</span>
-            <span class="mini">Ce soir · 2 pers.</span>
+          <div class="frame shot" id="frameApres">
+            <div class="shot-content">
+              <span class="tag">Bistrot · Paris 11ᵉ</span>
+              <h3>Le Chaudron</h3>
+              <p>Cuisine de marché, à deux pas de la Bastille.</p>
+            </div>
+            <div class="shot-resa">
+              <span>Réserver une table</span>
+              <span class="mini">Ce soir · 2 pers.</span>
+            </div>
           </div>
         </div>
       </div>
       <div class="float-badge fb1">
-        <span class="num">+30%</span>
-        <span class="lbl">de réservations<br>passent en ligne</span>
+        <span class="num">48h</span>
+        <span class="lbl">pour changer votre carte,<br>sur simple message</span>
       </div>
     </div>
   </div>
 </header>
 
-<section class="problem">
+<section id="diagnostic" class="problem">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kick">Le vrai coût d'une vitrine absente</div>
-      <h2>Vos clients vous cherchent. Ils ne vous trouvent pas.</h2>
+      <div class="kick">Le test des dix secondes</div>
+      <h2>Un site qui a vieilli ne dit pas « c'est vieux ». Il dit « c'est fermé ».</h2>
+      <p>Sortez votre téléphone, ouvrez votre site comme le ferait un client à 19h12. Cochez ce que vous reconnaissez.</p>
     </div>
-    <div class="stats">
-      <div class="stat reveal">
-        <div class="big">1 sur 5</div>
-        <p>appels à un restaurant reste sans réponse, en plein service.</p>
-      </div>
-      <div class="stat reveal">
-        <div class="big">62%</div>
-        <p>des clients préfèrent réserver en ligne plutôt qu'au téléphone.</p>
-      </div>
-      <div class="stat reveal">
-        <div class="big">&lt;40%</div>
-        <p>des restaurants indépendants ont un site web pro et à jour.</p>
-      </div>
+
+    <div class="signs" id="signs">
+      <button type="button" class="sign reveal" aria-pressed="false">
+        <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>La carte est un PDF. Il faut zoomer à deux doigts pour lire les entrées.</span>
+      </button>
+      <button type="button" class="sign reveal" aria-pressed="false">
+        <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>Les horaires affichés ne sont plus les bons depuis un moment.</span>
+      </button>
+      <button type="button" class="sign reveal" aria-pressed="false">
+        <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>Deux des plats en photo ne sont plus servis depuis deux ans.</span>
+      </button>
+      <button type="button" class="sign reveal" aria-pressed="false">
+        <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>Réserver demande d'appeler, ou renvoie vers une plateforme qui prend sa commission.</span>
+      </button>
+      <button type="button" class="sign reveal" aria-pressed="false">
+        <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>Sur mobile, il faut attendre, puis pincer l'écran pour tout lire.</span>
+      </button>
+      <button type="button" class="sign reveal" aria-pressed="false">
+        <span class="box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span>La dernière modification demandait un devis à quelqu'un qu'on ne joint plus.</span>
+      </button>
+    </div>
+
+    <div class="verdict reveal">
+      <span class="n" id="count">0</span>
+      <p id="verdictText">Cochez ce qui vous ressemble. Le calcul se fait tout seul.</p>
     </div>
   </div>
 </section>
@@ -306,7 +387,7 @@
     <div class="sec-head reveal">
       <div class="kick">Des exemples concrets</div>
       <h2>Trois styles, un même soin du détail.</h2>
-      <p>Des sites de démonstration, librement visitables. Le vôtre sera à votre image.</p>
+      <p>Des sites de démonstration, librement visitables. Le vôtre sera à votre image, pas à la mienne.</p>
     </div>
     <div class="demos-grid">
       <a href="bistrot.html" class="demo-card reveal">
@@ -337,7 +418,31 @@
   </div>
 </section>
 
-<section id="process" class="process">
+<section id="migration" class="keep">
+  <div class="wrap keep-grid">
+    <div class="sec-head reveal">
+      <div class="kick">La question qu'on me pose en premier</div>
+      <h2>« J'ai déjà un site. Je vais tout perdre ? »</h2>
+      <p>Non. On ne repart pas de zéro, on repart de ce que vous avez déjà construit. Votre adresse, votre référencement et vos avis restent à vous.</p>
+    </div>
+    <div class="points">
+      <div class="point reveal">
+        <h3><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Votre adresse ne change pas</h3>
+        <p>On garde votre nom de domaine. Vos cartes de visite, vos flyers, votre QR code sur les tables et votre fiche Google continuent de pointer au bon endroit.</p>
+      </div>
+      <div class="point reveal">
+        <h3><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Votre référencement est repris</h3>
+        <p>Chaque ancienne page est redirigée vers la nouvelle, une par une. Google ne perd pas le fil, votre position dans les résultats non plus. C'est ce que les refontes bâclées oublient de faire.</p>
+      </div>
+      <div class="point reveal">
+        <h3><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>La bascule se fait en une nuit</h3>
+        <p>Votre site actuel reste en ligne jusqu'à la dernière minute. On bascule après le service, entre deux jours de fermeture. Aucune coupure, aucune réservation perdue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kick">Simple, et rapide</div>
@@ -347,23 +452,23 @@
     <div class="steps">
       <div class="step reveal">
         <div class="day">Jour 0</div>
-        <h3>On échange</h3>
-        <p>Un questionnaire simple : photos, menu, horaires, votre histoire. 15 minutes.</p>
+        <h3>On regarde l'existant</h3>
+        <p>Ce qui mérite d'être gardé, ce qui vous dessert. Plus vos photos, votre carte, votre histoire. 15 minutes.</p>
       </div>
       <div class="step reveal">
-        <div class="day">Jour 1–5</div>
+        <div class="day">Jour 1 à 5</div>
         <h3>Je crée</h3>
-        <p>Deux directions de design proposées. Vous choisissez, on ajuste ensemble.</p>
+        <p>Deux directions de design proposées, à comparer avec votre site actuel. Vous choisissez, on ajuste.</p>
       </div>
       <div class="step reveal">
-        <div class="day">Jour 7–12</div>
+        <div class="day">Jour 7 à 12</div>
         <h3>J'intègre tout</h3>
-        <p>Réservation en ligne, fiche Google, référencement local. Plus une mini-formation.</p>
+        <p>Réservation en ligne, fiche Google, redirections depuis vos anciennes pages. Plus une mini-formation.</p>
       </div>
       <div class="step reveal">
         <div class="day">Jour 14</div>
-        <h3>En ligne</h3>
-        <p>Votre site est public. Une modif à faire ? Un simple message suffit.</p>
+        <h3>On bascule</h3>
+        <p>Même adresse, nouveau site, sans coupure. Une modif à faire ? Un simple message suffit.</p>
       </div>
     </div>
   </div>
@@ -380,24 +485,24 @@
       <div class="price-card reveal">
         <div class="ptag">La création</div>
         <div class="price-amount">990<small> € une fois</small></div>
-        <p class="price-sub">Votre site sur mesure, prêt à l'emploi.</p>
+        <p class="price-sub">Votre site refait, prêt à l'emploi.</p>
         <ul class="feats">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Site vitrine : menu, photos, histoire, infos</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Réservation en ligne intégrée</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Fiche Google Business optimisée</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Parfait sur mobile, là où sont vos clients</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Site vitrine : carte lisible, photos, histoire, infos</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Réservation en ligne intégrée, à votre nom</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Reprise du domaine et redirection de l'ancien site</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Fiche Google Business remise à jour</li>
         </ul>
-        <a href="#contact" class="btn btn-ghost">Démarrer mon site</a>
+        <a href="#contact" class="btn btn-ghost">Démarrer ma refonte</a>
       </div>
       <div class="price-card feature reveal">
         <div class="ptag">L'abonnement</div>
         <div class="price-amount">79<small> €/mois · sans engagement</small></div>
-        <p class="price-sub">Pour que votre site reste vivant et à jour.</p>
+        <p class="price-sub">Pour que ce site ne vieillisse jamais, lui.</p>
         <ul class="feats">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Hébergement et nom de domaine inclus</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Modifications illimitées par simple message</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Maintenance et sécurité gérées</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Menu, horaires, photos changés en 24h</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Carte, horaires et photos changés en 48h</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Modifications illimitées, par simple message</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Hébergement, nom de domaine et sécurité inclus</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Un interlocuteur, joignable, qui répond</li>
         </ul>
         <a href="#contact" class="btn btn-primary">Voir une maquette gratuite</a>
       </div>
@@ -421,9 +526,9 @@
     <div class="reveal">
       <div class="kick">Qui je suis</div>
       <h2>Bonjour, moi c'est <span class="ph-pill">Antonin</span>.</h2>
-      <p>Je crée des sites pour les restaurants indépendants de <span class="ph-pill">votre ville</span>. Pas une agence avec dix interlocuteurs : une seule personne, joignable, qui connaît votre projet et le suit du début à la fin.</p>
-      <p>J'ai monté Teamsy parce qu'un bon restaurant ne devrait pas perdre des clients à cause d'un site vieillissant ou d'un téléphone qui sonne dans le vide. La technologie d'aujourd'hui permet de faire beau, vite, et abordable. J'en fais profiter votre cuisine.</p>
-      <p class="signoff">« J'ai pris la liberté de préparer une maquette pour vous. Ça prend deux minutes à regarder. »</p>
+      <p>Je refais les sites des restaurants indépendants de <span class="ph-pill">votre ville</span>. Pas une agence avec dix interlocuteurs : une seule personne, joignable, qui connaît votre projet et le suit du début à la fin.</p>
+      <p>J'ai monté Teamsy après avoir vu trop de bonnes tables desservies par un site figé en 2019. Le problème n'est presque jamais le restaurateur : c'est qu'une fois le site livré, plus personne ne s'en occupe. Je fais l'inverse. Le site est un début, pas une livraison.</p>
+      <p class="signoff">« J'ai pris la liberté de refaire votre page d'accueil. Ça prend deux minutes à regarder. »</p>
     </div>
   </div>
 </section>
@@ -431,8 +536,8 @@
 <section id="contact" class="cta">
   <div class="wrap">
     <div class="box reveal">
-      <h2>On regarde à quoi ressemblerait votre site ?</h2>
-      <p>Dites-moi le nom de votre restaurant. Je prépare une maquette gratuite, sans engagement.</p>
+      <h2>Je refais votre page d'accueil. Gratuitement.</h2>
+      <p>Dites-moi le nom de votre restaurant. Vous recevez une maquette sous 48h, à comparer avec votre site actuel. Aucun engagement, aucune relance insistante.</p>
       <div class="cta-btns">
         <a href="https://wa.me/PLACEHOLDER_NUMERO" class="btn btn-wa" id="waBtn">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5 0a6.5 6.5 0 01-1.9-1.2 7.2 7.2 0 01-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4c.1-.2.1-.3.2-.5s0-.3 0-.5-.5-1.3-.7-1.7-.4-.4-.5-.4h-.5a.9.9 0 00-.7.3 2.8 2.8 0 00-.9 2.1 4.9 4.9 0 001 2.6 11.2 11.2 0 004.3 3.8c.6.3 1.1.4 1.5.5a3.5 3.5 0 001.6.1c.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1-.2-.2-.4-.3z"/></svg>
@@ -449,12 +554,13 @@
     <div class="foot-in">
       <div>
         <a href="#" class="logo">Teamsy<span class="dot"></span></a>
-        <p>Sites web et réservation en ligne pour les restaurants indépendants.</p>
+        <p>Refonte de sites et réservation en ligne pour les restaurants indépendants.</p>
       </div>
       <div class="foot-links">
         <div class="foot-col">
           <h4>Le site</h4>
-          <a href="#demos">Exemples</a>
+          <a href="#diagnostic">Le test des 10 secondes</a>
+          <a href="#migration">J'ai déjà un site</a>
           <a href="#process">Comment ça marche</a>
           <a href="#pricing">Tarifs</a>
         </div>
@@ -480,13 +586,63 @@
 </footer>
 
 <script>
-  // mobile menu
-  const t=document.getElementById('menuToggle'),n=document.getElementById('navlinks');
-  t.addEventListener('click',()=>n.classList.toggle('show'));
-  n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>n.classList.remove('show')));
-  // reveal on scroll
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.12});
-  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+(function(){
+  // menu mobile
+  var t=document.getElementById('menuToggle'),n=document.getElementById('navlinks');
+  t.addEventListener('click',function(){
+    var open=n.classList.toggle('show');
+    t.setAttribute('aria-expanded',open?'true':'false');
+  });
+  n.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){n.classList.remove('show');t.setAttribute('aria-expanded','false')});
+  });
+
+  // bascule avant / apres
+  var bAv=document.getElementById('btnAvant'),bAp=document.getElementById('btnApres'),
+      fAv=document.getElementById('frameAvant'),fAp=document.getElementById('frameApres'),
+      auto=true;
+  function show(after){
+    fAv.classList.toggle('on',!after);
+    fAp.classList.toggle('on',after);
+    bAv.setAttribute('aria-pressed',after?'false':'true');
+    bAp.setAttribute('aria-pressed',after?'true':'false');
+  }
+  bAv.addEventListener('click',function(){auto=false;show(false)});
+  bAp.addEventListener('click',function(){auto=false;show(true)});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){show(true);}
+  else{setTimeout(function(){if(auto)show(true)},2300);}
+
+  // test des 10 secondes
+  var signs=Array.prototype.slice.call(document.querySelectorAll('.sign')),
+      cEl=document.getElementById('count'),vEl=document.getElementById('verdictText');
+  var msg=[
+    "Cochez ce qui vous ressemble. Le calcul se fait tout seul.",
+    "Un seul suffit à faire hésiter quelqu'un qui cherchait où dîner ce soir.",
+    "Deux signes, et le doute s'installe avant même qu'on ait vu votre carte.",
+    "À ce stade, votre site ne vous présente plus : il vous excuse.",
+    "Quatre. Chaque semaine, des gens choisissent le restaurant d'à côté pour ça.",
+    "Votre site travaille contre vous. Ça se répare en quatorze jours.",
+    "Le score parfait. La bonne nouvelle : tout est réparable, et vous savez déjà par où commencer."
+  ];
+  function update(){
+    var k=signs.filter(function(s){return s.getAttribute('aria-pressed')==='true'}).length;
+    cEl.textContent=k;
+    vEl.textContent=msg[k];
+  }
+  signs.forEach(function(s){
+    s.addEventListener('click',function(){
+      s.setAttribute('aria-pressed',s.getAttribute('aria-pressed')==='true'?'false':'true');
+      update();
+    });
+  });
+
+  // reveal au scroll
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(function(el){io.observe(el)});
+})();
 </script>
 </body>
 </html>
